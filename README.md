@@ -35,11 +35,11 @@ Things you may want to cover:
 |firstname  | string | null: false |
 |family-kana| string | null: false |
 |first-kana | string | null: false |
-|birthdate  | integer| null: false |
+|birthdate  | date   | null: false |
 
 ### Association
 
-- has_many :purchase
+- has_many :purchases
 - has_many :items
 - has_many :comments
 
@@ -52,16 +52,16 @@ Things you may want to cover:
 | name    | string | null: false |
 | image   | string | null: false |
 | explain | text   | null: false |
-|category | string | null: false |
-|condition| string | null: false |
-| d-fee   | string | null: false |
-| d-area  | string | null: false |
-| d-day   | string | null: false |
+|category | integer| null: false |
+|condition| integer| null: false |
+|   fee   | integer| null: false |
+|   area  | integer| null: false |
+|   day   | integer| null: false |
 | price   | integer| null: false |
 
 ### Association
 
-- belongs_to :users
+- belongs_to :user
 - has_many :comments
 - has_one : purchase
 
@@ -69,8 +69,8 @@ Things you may want to cover:
 
 | Column | Type       | Options                        |
 | ------ | ---------- | ------------------------------ |
-| user_id| references | null: false, foreign_key: true |
-| item_id| references | null: false, foreign_key: true |
+| user   | references | null: false, foreign_key: true |
+| item   | references | null: false, foreign_key: true |
 | content| text       | null: false                    |
 
 ### Association
@@ -78,28 +78,29 @@ Things you may want to cover:
 - belongs_to :users
 - belongs_to :items
 
-## purchase テーブル
+## purchases テーブル
 
 | Column  | Type       | Options                        |
 | ------- | ---------- | ------------------------------ |
-| user_id | references | null: false, foreign_key: true |
-| item_id | references | null: false, foreign_key: true |
+| user    | references | null: false, foreign_key: true |
+| item    | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :users
 - belongs_to :items
-- has_one : addresses
+- has_one : address
 
 ## addresses テーブル
 
 | Column     | Type       | Options                        |
 | -------    | ---------- | ------------------------------ |
-| postcode   | integer    | null: false                    |
-| prefecture | string     | null: false                    |
+| postcode   | string     | null: false                    |
+| prefecture | integer    | null: false                    |
 | city       | string     | null: false                    |
+| number     | string     | null: false                    |
 | building   | string     |                                |
-| phone      | integer    | null: false                    |
+| phone      | string     | null: false                    |
 
 ### Association
 
