@@ -7,7 +7,7 @@ describe User, type: :model do
 
   describe 'ユーザー新規登録' do
     context '新規登録がうまくいくとき' do
-      it 'nickname、email、password、password_confirmation、family_name、first_name、family_name_kana、first_name_kana、birthdateが存在すれば登録できる' do
+      it '全てが存在すれば登録できる' do
         expect(@user).to be_valid
       end
 
@@ -25,13 +25,19 @@ describe User, type: :model do
         expect(@user).to be_valid
       end
       it 'family_name_kanaが全角で登録できる' do
-        @user.first_name_kana = 'タナカ'
+        @user.family_name_kana = 'タナカ'
         expect(@user).to be_valid
       end
       it 'first_name_kanaが全角で登録できる' do
-        @user.first_name = 'タロウ'
+        @user.first_name_kana = 'タナカ'
         expect(@user).to be_valid
       end
+
+      it 'birthdateが半角の数字で登録できる' do
+        @user.birthdate = '1930-01-02'
+        expect(@user).to be_valid
+      end
+
     end
 
     context '新規登録がうまくいかないとき' do
@@ -45,6 +51,13 @@ describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("Email can't be blank")
       end
+
+      it 'emailに@がないと登録できない' do
+        @user.email = 'ttttt'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Email is invalid")
+      end
+
       it '重複したemailが存在する場合登録できない' do
         @user.save
         another_user = FactoryBot.build(:user)
@@ -100,6 +113,18 @@ describe User, type: :model do
         expect(@user.errors.full_messages).to include('First name Full-width characters')
       end
 
+      it 'family_name_kanaが空では登録できない' do
+        @user.family_name_kana = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Family name kana can't be blank")
+      end
+
+      it 'first_name_kanaが空では登録できない' do
+        @user.first_name_kana = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name kana can't be blank")
+      end
+
       it 'first_name_kanaが全角カタカナではないとき' do
         @user.first_name_kana = 'bbbb'
         @user.valid?
@@ -110,6 +135,12 @@ describe User, type: :model do
         @user.family_name_kana = 'cccc'
         @user.valid?
         expect(@user.errors.full_messages).to include('Family name kana Full-width katakana characters')
+      end
+
+      it 'birthdateが空では登録できない' do
+        @user.birthdate = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Birthdate can't be blank")
       end
     end
   end
