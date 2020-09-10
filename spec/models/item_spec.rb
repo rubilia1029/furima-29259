@@ -42,12 +42,7 @@ describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
 
-      it 'Priceが半角数字ではないと保存できない' do
-        @item.price = '２０００'
-        @item.valid?
-        expect(@item.errors.full_messages).to include('Price Half-width number.')
-      end
-
+      
       it 'Priceが300未満だと保存できない' do
         @item.price = 200
         @item.valid?
@@ -59,7 +54,7 @@ describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include('Price Out of setting range')
       end
-      
+
       it 'Categoryが選択されてないと保存できない' do
         @item.category_id = 1
         @item.valid?
