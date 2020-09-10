@@ -37,7 +37,6 @@ describe User, type: :model do
         @user.birthdate = '1930-01-02'
         expect(@user).to be_valid
       end
-
     end
 
     context '新規登録がうまくいかないとき' do
@@ -55,7 +54,7 @@ describe User, type: :model do
       it 'emailに@がないと登録できない' do
         @user.email = 'ttttt'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Email is invalid")
+        expect(@user.errors.full_messages).to include('Email is invalid')
       end
 
       it '重複したemailが存在する場合登録できない' do
