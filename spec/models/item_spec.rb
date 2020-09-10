@@ -48,12 +48,18 @@ describe Item, type: :model do
         expect(@item.errors.full_messages).to include('Price Half-width number.')
       end
 
-      it 'Priceが300以上9999999以下でないと保存できない' do
+      it 'Priceが300未満だと保存できない' do
         @item.price = 200
         @item.valid?
         expect(@item.errors.full_messages).to include('Price Out of setting range')
       end
 
+      it 'Priceが10000000以上だと保存できない' do
+        @item.price = 10000000
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price Out of setting range')
+      end
+      
       it 'Categoryが選択されてないと保存できない' do
         @item.category_id = 1
         @item.valid?
