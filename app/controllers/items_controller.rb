@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_action :move_to_new, except: [:index, :show]
 
   def index
-    @items = Item.all
+    @items = Item.all.order("created_at DESC")
   end
 
   def new
@@ -18,6 +18,16 @@ class ItemsController < ApplicationController
       render :new
     end
   end
+
+  def show
+    @item = Item.find(params[:id])
+    @user = User.find(@item.user_id)
+    @category = Category.find(@item.category_id)
+    @condition = Condition.find(@item.condition_id)
+    @fee = Fee.find(@item.fee_id)
+    @area = Area.find(@item.area_id)
+    @day = Day.find(@item.day_id)
+  end  
 
   private
 
