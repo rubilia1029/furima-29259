@@ -42,7 +42,6 @@ describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
 
-      
       it 'Priceが300未満だと保存できない' do
         @item.price = 200
         @item.valid?
@@ -50,7 +49,7 @@ describe Item, type: :model do
       end
 
       it 'Priceが10000000以上だと保存できない' do
-        @item.price = 10000000
+        @item.price = 10_000_000
         @item.valid?
         expect(@item.errors.full_messages).to include('Price Out of setting range')
       end
