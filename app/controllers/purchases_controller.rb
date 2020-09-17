@@ -1,7 +1,8 @@
 class PurchasesController < ApplicationController
   before_action :move_to_new
   before_action :move_to_top
-
+  before_action :move_to_top_2
+  
   def index
     @item = Item.find(params[:item_id])
     @purchase = PurchaseAddress.new
@@ -33,6 +34,11 @@ class PurchasesController < ApplicationController
     item = Item.find(params[:item_id])
     redirect_to root_path if user_signed_in? && current_user.id == item.user_id
   end
+
+  def move_to_top_2
+    item = Item.find(params[:item_id])
+    redirect_to root_path if item.purchase.present?
+  end  
 
   def pay_item
     Payjp.api_key = ENV['PAYJP_SECRET_KEY'] # PAY.JPテスト秘密鍵
