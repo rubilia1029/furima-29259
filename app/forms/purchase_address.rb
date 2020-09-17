@@ -2,12 +2,11 @@ class PurchaseAddress
   include ActiveModel::Model
   attr_accessor :postcode, :prefecture, :city, :number, :building, :phone, :token, :user_id, :item_id
 
-  validates :token, presence: true
 
   with_options presence: true do
+    validates :token, :city, :number
     validates :postcode, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'Input correctly' }
     validates :prefecture, numericality: { other_than: 0, message: 'Select'}
-    validates :city, :number
     validates :phone, format: {with: /\A[0-9]+\z/, message: 'Half size number'}
   end
 
