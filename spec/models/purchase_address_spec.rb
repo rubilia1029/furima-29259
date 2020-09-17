@@ -12,7 +12,7 @@ RSpec.describe PurchaseAddress, type: :model do
       end
 
       it '建物名が空でも出品できる' do
-        @purchase.building =  nil
+        @purchase.building = nil
         expect(@purchase).to be_valid
       end
     end
@@ -33,7 +33,7 @@ RSpec.describe PurchaseAddress, type: :model do
       it 'prefectureが空だと出品できない' do
         @purchase.prefecture = nil
         @purchase.valid?
-        expect(@purchase.errors.full_messages).to include("Prefecture Select")
+        expect(@purchase.errors.full_messages).to include('Prefecture Select')
       end
 
       it 'Numberが空だと出品できない' do
@@ -47,10 +47,6 @@ RSpec.describe PurchaseAddress, type: :model do
         @purchase.valid?
         expect(@purchase.errors.full_messages).to include("Phone can't be blank")
       end
-
-
     end
-  end  
-    
-
+  end
 end
